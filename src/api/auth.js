@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 const api = axios.create({
     baseURL: 'https://readora.cloudpub.ru/api',
@@ -21,6 +20,7 @@ export const booksApi = {
             }
         }),
     getBookDetails: (id) => api.get(`/books/${id}`),
+    getTextContent: (id) => api.get(`/books/${id}/text`),
     uploadBook: (data) => api.post('/books', data),
     updateBook: (id, data) => api.put(`/books/${id}`, data),
     deleteBook: (id) => api.delete(`/books/${id}`)
@@ -38,4 +38,9 @@ export const userApi = {
     getMe: () => api.get(`/users/me`),
     updateUserProfile: (data) => api.put('/users/me', data),
     getUserBooks: (userId) => api.get(`/users/${userId}/books`)
+};
+
+export const commentsApi = {
+    getComments: (bookId) => api.get(`/comments?bookId=${bookId}`),
+    createComment: (data) => api.post('/comments', data)
 };

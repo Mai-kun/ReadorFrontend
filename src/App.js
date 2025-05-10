@@ -8,6 +8,7 @@ import ProfilePage from "./pages/ProfilePage";
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import BookPage from "./pages/BookPage";
+import ReaderPage from "./pages/ReaderPage";
 
 function App() {
     return (
@@ -26,6 +27,7 @@ function App() {
                         }
                     />
                     <Route path="/book/:id" element={<BookPage />} />
+                    <Route path="/book/:id/read" element={<ReaderPage />} />
                     <Route path="/" element={<HomePage />} />
                     <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
