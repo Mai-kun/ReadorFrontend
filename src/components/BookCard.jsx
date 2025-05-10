@@ -1,8 +1,16 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const BookCard = ({ book }) => {
+    const navigate = useNavigate();
+    
     return (
-        <div className="book-card">
+        <div
+            className="book-card"
+            onClick={() => navigate(`/book/${book.id}`)}
+            role="button"
+            tabIndex={0}
+        >
             <img
                 src={book.coverUrl || '/placeholder-cover.jpg'}
                 alt={book.title}
