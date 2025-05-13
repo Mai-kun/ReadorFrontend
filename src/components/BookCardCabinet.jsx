@@ -4,7 +4,7 @@
             <img
                 src={book.coverUrl}
                 alt={`Cover of ${book.title}`}
-                className="book-cover"
+                className="book-cover-profile"
             />
             <div className="book-details">
                 <h3>{book.title}</h3>

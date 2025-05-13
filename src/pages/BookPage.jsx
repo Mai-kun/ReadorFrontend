@@ -10,7 +10,6 @@ const BookPage = () => {
     const { id } = useParams();
     const { isAuthenticated, user } = useAuth();
     const [book, setBook] = useState(null);
-    const [showContent, setShowContent] = useState(false);
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -36,8 +35,14 @@ const BookPage = () => {
         fetchData();
     }, [id]);
 
-    const handleNewComment = (newComment) => {
-        setComments([...comments, newComment]);
+    const handleNewComment = async (newComment) => {
+        const commentsRes = await commentsApi.getComments(id);
+        setComments(commentsRes.data);
+    };    
+    
+    const handleDeleteComment = (commentId) => {
+        commentsApi.deleteComment(commentId);
+        setComments(prev => prev.filter(c => c.id !== commentId));
     };
 
     if (loading) return <div className="loading">Загрузка...</div>;
@@ -56,7 +61,7 @@ const BookPage = () => {
                     <img
                         src={book.coverUrl || '/placeholder-cover.jpg'}
                         alt={book.title}
-                        className="book-cover"
+                        className="book-cover-profile"
                     />
                 </div>
 
@@ -80,15 +85,6 @@ const BookPage = () => {
                 Читать
             </button>
 
-            {showContent && (
-                <div className="content-modal">
-                    <div className="modal-content">
-                        <span className="close" onClick={() => setShowContent(false)}>&times;</span>
-                        <div className="book-content-text">{book.content}</div>
-                    </div>
-                </div>
-            )}
-
             <div className="comments-section">
                 <h2>Комментарии ({comments.length})</h2>
 
@@ -102,17 +98,30 @@ const BookPage = () => {
 
                 <div className="comments-list">
                     {comments.map(comment => (
-                        <div key={comment.id} className="comment">
-                            <div className="comment-header">
-                                <span className="author">{comment.user.username}</span>
-                                <span className="date">
-                                    {new Date(comment.createdAt).toLocaleDateString()}
-                                </span>
-                            </div>
+                    <div key={comment.id} className="comment">
+                        <div className="comment-header">
+                    <span className="author">
+                        { comment.user.name || 'Аноним'}
+                    </span>
+                    <span className="date">
+                        {new Date(comment.createdAt).toLocaleDateString()}
+                    </span>
+                        </div>
                             <div className="comment-text">{comment.text}</div>
+
+                            {user?.id === comment.user.id  && (
+                                <button
+                                    className="delete-button"
+                                    onClick={() => handleDeleteComment(comment.id)}
+                                >
+                                    Удалить
+                                </button>
+                            )}
                         </div>
                     ))}
                 </div>
+
+
             </div>
         </div>
     );

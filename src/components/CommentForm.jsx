@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { commentsApi } from '../api/auth';
+import '../styles/BookPage.css';
 
 export const CommentForm = ({ bookId, userId, onSuccess }) => {
     const [text, setText] = useState('');

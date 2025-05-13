@@ -21,7 +21,11 @@ export const booksApi = {
         }),
     getBookDetails: (id) => api.get(`/books/${id}`),
     getTextContent: (id) => api.get(`/books/${id}/text`),
-    uploadBook: (data) => api.post('/books', data),
+    uploadBook: (formData) => api.post('/books', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }),
     updateBook: (id, data) => api.put(`/books/${id}`, data),
     deleteBook: (id) => api.delete(`/books/${id}`)
 };
@@ -42,5 +46,6 @@ export const userApi = {
 
 export const commentsApi = {
     getComments: (bookId) => api.get(`/comments?bookId=${bookId}`),
-    createComment: (data) => api.post('/comments', data)
+    createComment: (data) => api.post('/comments', data),
+    deleteComment: (id) => api.delete(`/comments/${id}`)
 };

@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { booksApi } from '../api/auth';
 import '../styles/ReaderPage.css';
@@ -27,6 +27,7 @@ const ReaderPage = () => {
     return (
         <div className="reader-container">
             {loading && <div className="loading">Загрузка книги...</div>}
+            {error && <div className="error">{error}</div>}
 
             <div className="reader-container">
                 <pre className="text-content">{textContent}</pre>

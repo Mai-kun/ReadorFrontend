@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react';
 import BookCard from '../components/BookCard';
 import '../styles/HomePage.css';
 import { userApi } from '../api/auth';
+import AddBookForm from "../components/AddBookForm";
 
 export default function ProfilePage() {
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [showAddBookForm, setShowAddBookForm] = useState(false);
+    const [userBooks, setUserBooks] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -41,6 +44,24 @@ export default function ProfilePage() {
                 </div>
             </div>
 
+            <div className="profile-actions">
+                <button
+                    className="add-book-button"
+                    onClick={() => setShowAddBookForm(true)}
+                >
+                    Добавить книгу
+                </button>
+            </div>
+
+            {showAddBookForm && (
+                <div className="modal-overlay">
+                    <AddBookForm
+                        onClose={() => setShowAddBookForm(false)}
+                        onBookAdded={(newBook) => setUserBooks([...userBooks, newBook])}
+                    />
+                </div>
+            )}
+            
             {/* Statistics */}
             <div className="stats-section">
                 <h2>Statistics</h2>

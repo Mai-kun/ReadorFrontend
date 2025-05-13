@@ -1,13 +1,14 @@
-﻿// components/Navbar.jsx
-import { useState, useEffect, useContext } from 'react';
+// components/Navbar.jsx
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/Navbar.css';
+import '../styles/ProfilePage.css';
 
 const Navbar = () => {
     const { isAuthenticated, user, logout } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
+    const [, setIsMobile] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,7 +33,7 @@ const Navbar = () => {
         <nav className="navbar">
             <div className="navbar-container">
                 <Link to="/" className="navbar-logo" onClick={() => setIsOpen(false)}>
-                    BookApp
+                    Readora
                 </Link>
 
                 <div className={`nav-menu ${isOpen ? 'active' : ''}`}>
