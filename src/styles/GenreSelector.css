@@ -1,0 +1,23 @@
+﻿.genre-search-input {
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    width: 100%;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.genres-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.genre-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+}

@@ -1,0 +1,52 @@
+﻿.moderation-page {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.moderation-list {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.moderation-item {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+}
+
+.book-info h3 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+.moderation-actions textarea {
+    width: 100%;
+    height: 100px;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.approve-btn {
+    background: #27ae60;
+    color: white;
+    padding: 0.5rem 1.5rem;
+}
+
+.reject-btn {
+    background: #e74c3c;
+    color: white;
+    padding: 0.5rem 1.5rem;
+}

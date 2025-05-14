@@ -33,7 +33,11 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
         try {
             const res = await authApi.checkAuth();
-            setUser(res.data);
+            setUser({
+                id: res.data.id,
+                username: res.data.username,
+                role: res.data.role
+            });
             setIsAuthenticated(true);
             return true;
         } catch (error) {

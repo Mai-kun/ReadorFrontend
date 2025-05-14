@@ -2,6 +2,7 @@
 import { useAuth } from '../context/AuthContext';
 import { booksApi, genresApi } from '../api/auth';
 import '../styles/AddBookForm.css';
+import GenreSelector from "./GenreSelector";
 
 const AddBookForm = ({ onClose, onBookAdded }) => {
     const { user } = useAuth();
@@ -53,7 +54,7 @@ const AddBookForm = ({ onClose, onBookAdded }) => {
         data.append('PublicationYear', formData.publicationYear);
         data.append('ISBN', formData.isbn);
         formData.genres.forEach((genreId) => {
-            data.append('Genres', genreId); // ✅ отправляем как многозначное поле
+            data.append('Genres', genreId);
         });
         data.append('BookFile', formData.bookFile);
         data.append('CoverImage', formData.coverImage);
@@ -120,27 +121,11 @@ const AddBookForm = ({ onClose, onBookAdded }) => {
                     <small>Формат: 10 или 13 цифр с дефисами</small>
                 </div>
 
-                <div className="form-group">
-                    <label>Жанры*</label>
-                    <div className="genres-grid">
-                        {genresList.map(genre => (
-                            <label key={genre.id} className="genre-checkbox">
-                                <input
-                                    type="checkbox"
-                                    value={genre.id}
-                                    checked={formData.genres.includes(genre.id)}
-                                    onChange={(e) => {
-                                        const newGenres = e.target.checked
-                                            ? [...formData.genres, genre.id]
-                                            : formData.genres.filter(id => id !== genre.id);
-                                        setFormData({...formData, genres: newGenres});
-                                    }}
-                                />
-                                {' ' + genre.name}
-                            </label>
-                        ))}
-                    </div>
-                </div>
+                <GenreSelector
+                    genresList={genresList}
+                    formData={formData}
+                    setFormData={setFormData}
+                />
 
                 <div className="form-group">
                     <label>Файл книги (TXT)*</label>

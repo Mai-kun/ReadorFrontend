@@ -39,7 +39,6 @@ export default function ProfilePage() {
                     <div className="meta-info">
                         <p>Email: {profile.email}</p>
                         <p>Registered: {new Date(profile.createdAt).toLocaleDateString()}</p>
-                        <p className="public-key">Public Key: {profile.publicKey}</p>
                     </div>
                 </div>
             </div>

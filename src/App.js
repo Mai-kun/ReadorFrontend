@@ -9,6 +9,7 @@ import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import BookPage from "./pages/BookPage";
 import ReaderPage from "./pages/ReaderPage";
+import ModerationPage from "./pages/ModerationPage";
 
 function App() {
     return (
@@ -29,6 +30,16 @@ function App() {
                     <Route path="/book/:id" element={<BookPage />} />
                     <Route path="/book/:id/read" element={<ReaderPage />} />
                     <Route path="/" element={<HomePage />} />
+
+                    <Route
+                        path="/moderation"
+                        element={
+                            <ProtectedRoute requiredRole="Moderator">
+                                <ModerationPage />
+                            </ProtectedRoute>
+                        }
+                    />
+                    
                     <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
             </BrowserRouter>
