@@ -1,0 +1,152 @@
+﻿.book-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+    cursor: pointer;
+    background: white;
+}
+
+.book-card:hover {
+    transform: translateY(-3px);
+}
+
+/* Стили статусов */
+.moderation-pending {
+    position: relative;
+    overflow: hidden;
+}
+
+.moderation-pending::after {
+    content: 'На модерации';
+    position: absolute;
+    top: 50%;
+    left: -35%;
+    width: 170%;
+    transform: rotate(-45deg) translateY(-50%);
+    background: rgba(255, 235, 59, 0.9);
+    color: #333;
+    font-weight: 700;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 4px 0;
+    z-index: 2;
+}
+
+.moderation-rejected {
+    position: relative;
+    overflow: hidden;
+}
+
+.moderation-rejected::after {
+    content: 'Отклонено';
+    position: absolute;
+    top: 50%;
+    left: -35%;
+    width: 170%;
+    transform: rotate(-45deg) translateY(-50%);
+    background: rgba(244, 67, 54, 0.9);
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 4px 0;
+    z-index: 2;
+}
+
+/* Фоновое затемнение */
+.moderation-pending::before,
+.moderation-rejected::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.moderation-pending::before {
+    background: rgba(255, 235, 59, 0.15);
+}
+
+.moderation-rejected::before {
+    background: rgba(244, 67, 54, 0.15);
+}
+
+.restricted-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    font-weight: bold;
+    color: #666;
+    font-size: 1.2rem;
+    backdrop-filter: blur(2px);
+}
+
+.book-cover {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+.book-info {
+    padding: 1rem;
+}
+
+.author {
+    color: #666;
+    margin: 0.5rem 0;
+}
+
+.genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.genre-tag {
+    background: #f0f0f0;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.description {
+    color: #444;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.status-badge {
+    position: absolute;
+    top: 10px;
+    right: -25px;
+    padding: 5px 30px;
+    transform: rotate(45deg);
+    color: white;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.status-badge.Pending {
+    background: #ffc107;
+}
+
+.status-badge.Rejected {
+    background: #dc3545;
+}

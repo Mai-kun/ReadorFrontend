@@ -1,12 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import '../styles/BookCard.css';
 
 const BookCard = ({ book }) => {
     const navigate = useNavigate();
+    const { user } = useAuth();
     
+    const getStatusStyle = () => {
+        if (book.status === 'Pending') return 'moderation-pending';
+        if (book.status === 'Rejected') return 'moderation-rejected';
+        return '';
+    };
+
     return (
         <div
-            className="book-card"
+            className={`book-card ${getStatusStyle()}`}
             onClick={() => navigate(`/book/${book.id}`)}
             role="button"
             tabIndex={0}

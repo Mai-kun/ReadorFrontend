@@ -12,7 +12,7 @@ const BookPage = () => {
     const [book, setBook] = useState(null);
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    const [error, setError] = useState();
     const navigate = useNavigate();
     
     useEffect(() => {
@@ -26,16 +26,16 @@ const BookPage = () => {
                 setBook(bookRes.data);
                 setComments(commentsRes.data);
             } catch (err) {
-                console.error(err);
+                setError(err.response?.status === 403 ? "У вас нет прав на доступ к этой книге" : "Произошла ошибка");
             } finally {
                 setLoading(false);
             }
         };
-
+        
         fetchData();
     }, [id]);
 
-    const handleNewComment = async (newComment) => {
+    const handleNewComment = async () => {
         const commentsRes = await commentsApi.getComments(id);
         setComments(commentsRes.data);
     };    
@@ -46,6 +46,7 @@ const BookPage = () => {
     };
 
     if (loading) return <div className="loading">Загрузка...</div>;
+    if (error) return <div className="loading">{error}</div>;
 
     return (
         <div className="book-page">
