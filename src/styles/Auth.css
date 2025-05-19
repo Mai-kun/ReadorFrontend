@@ -1,12 +1,18 @@
 ﻿/* Общие стили */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
 .auth-page {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     background: #f0f2f5;
     padding: 2rem;
+    min-height: 100vh;
+    box-sizing: border-box;
 }
 
 .auth-container {
@@ -30,13 +36,11 @@
 .auth-form {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
 }
 
 .form-group label {

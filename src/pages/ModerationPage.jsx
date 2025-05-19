@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { moderationApi } from '../api/auth';
 import '../styles/ModerationPage.css';
 
