@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/ReadoraFrontend/static/css/main.943e3a21.css",
-    "main.js": "/ReadoraFrontend/static/js/main.227a5005.js",
+    "main.css": "/ReadoraFrontend/static/css/main.78627577.css",
+    "main.js": "/ReadoraFrontend/static/js/main.26f10427.js",
     "static/js/453.2073333b.chunk.js": "/ReadoraFrontend/static/js/453.2073333b.chunk.js",
     "index.html": "/ReadoraFrontend/index.html",
-    "main.943e3a21.css.map": "/ReadoraFrontend/static/css/main.943e3a21.css.map",
-    "main.227a5005.js.map": "/ReadoraFrontend/static/js/main.227a5005.js.map",
+    "main.78627577.css.map": "/ReadoraFrontend/static/css/main.78627577.css.map",
+    "main.26f10427.js.map": "/ReadoraFrontend/static/js/main.26f10427.js.map",
     "453.2073333b.chunk.js.map": "/ReadoraFrontend/static/js/453.2073333b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.943e3a21.css",
-    "static/js/main.227a5005.js"
+    "static/css/main.78627577.css",
+    "static/js/main.26f10427.js"
   ]
 }
