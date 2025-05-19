@@ -6,7 +6,7 @@
 
 .books-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1.5rem;
     margin-top: 1rem;
 }
@@ -17,12 +17,8 @@
         gap: 1rem;
     }
 
-    .book-cover {
-        height: 140px; /* Меньше высота обложки */
-    }
-
     .book-info {
-        padding: 0.5rem;
+        padding: 1rem;
     }
 
     .description {
@@ -33,28 +29,6 @@
     .author {
         font-size: 0.75rem;
     }
-}
-
-.book-card {
-    border: 1px solid #eee;
-    border-radius: 8px;
-    overflow: hidden;
-    transition: transform 0.2s;
-    
-}
-
-.book-card:hover {
-    transform: translateY(-5px);
-}
-
-.book-cover {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-}
-
-.book-info {
-    padding: 1rem;
 }
 
 .author {

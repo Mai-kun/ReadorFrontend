@@ -27,13 +27,11 @@ const BookCard = ({ book }) => {
             />
             <div className="book-info">
                 <h3>{book.title}</h3>
-                <p className="author">{book.author}</p>
                 <div className="genres">
                     {book.genres.map(genre => (
                         <span key={genre} className="genre-tag">{genre}</span>
                     ))}
                 </div>
-                <p className="description">{book.description}</p>
             </div>
         </div>
     );
