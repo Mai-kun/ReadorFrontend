@@ -10,13 +10,17 @@ const HomePage = () => {
     const [selectedGenre, setSelectedGenre] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
             try {
                 const [booksResponse, genresResponse] = await Promise.all([
-                    booksApi.getBooks(selectedGenre),
+                    booksApi.getBooks({
+                        genre: selectedGenre,
+                        search: searchQuery
+                    }),
                     genresApi.getGenres()
                 ]);
 
@@ -29,18 +33,33 @@ const HomePage = () => {
             }
         };
 
-        fetchData();
-    }, [selectedGenre]);
+        const debounceTimer = setTimeout(() => {
+            fetchData();
+        }, 500);
+
+        return () => clearTimeout(debounceTimer);
+    }, [selectedGenre, searchQuery]);
 
     return (
         <div className="home-page">
             <h1>Библиотека</h1>
-            
-            <GenreFilter
-                genres={genres}
-                selectedGenre={selectedGenre}
-                onSelect={setSelectedGenre}
-            />
+
+            <div className="search-filters">
+                <div className="search-bar">
+                    <input
+                        type="text"
+                        placeholder="Поиск по названию или автору..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </div>
+
+                <GenreFilter
+                    genres={genres}
+                    selectedGenre={selectedGenre}
+                    onSelect={setSelectedGenre}
+                />
+            </div>
 
             {error && <div className="error-message">{error}</div>}
 

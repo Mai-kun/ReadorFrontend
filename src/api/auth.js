@@ -13,12 +13,7 @@ export const authApi = {
 };
 
 export const booksApi = {
-    getBooks: (genre = null) =>
-        api.get('/books', {
-            params: {
-                genre: genre || undefined
-            }
-        }),
+    getBooks: (params) => api.get('/books', { params }),
     getBookDetails: (id) => api.get(`/books/${id}`),
     getTextContent: (id) => api.get(`/books/${id}/text`),
     uploadBook: (formData) => api.post('/books', formData, {
