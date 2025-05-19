@@ -1,0 +1,16 @@
+﻿.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo-icon {
+    margin-right: 0.3rem;
+    width: 54px;
+    height: 44px;
+    transition: transform 0.3s ease;
+}
+
+.navbar-logo:hover .logo-icon {
+    transform: scale(1.2);
+}

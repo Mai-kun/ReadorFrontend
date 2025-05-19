@@ -2,11 +2,15 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { ReactComponent as LogoIcon } from '../assets/logo-icon.svg';
 import '../styles/Navbar.css';
 import '../styles/ProfilePage.css';
+import '../styles/LogoCsv.css';
+
+
 
 const Navbar = () => {
-    const { isAuthenticated, user, logout } = useAuth();
+    const { isAuthenticated, logout } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
     const [, setIsMobile] = useState(false);
     const navigate = useNavigate();
@@ -28,11 +32,11 @@ const Navbar = () => {
         setIsOpen(false);
         navigate('/');
     };
-
     return (
         <nav className="navbar">
             <div className="navbar-container">
                 <Link to="/" className="navbar-logo" onClick={() => setIsOpen(false)}>
+                    <LogoIcon className="logo-icon" />
                     Readora
                 </Link>
 
