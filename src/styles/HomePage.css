@@ -7,14 +7,13 @@
 .books-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.5rem;
+    gap: 3.2rem;
     margin-top: 1rem;
 }
 
 @media (max-width: 768px) {
     .books-grid {
         grid-template-columns: repeat(2, 1fr); /* Три колонки */
-        gap: 1rem;
     }
 
     .book-info {
@@ -23,7 +22,6 @@
 
     .description {
         font-size: 0.8rem;
-        -webkit-line-clamp: 2;
     }
 
     .author {

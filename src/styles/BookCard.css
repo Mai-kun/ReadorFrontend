@@ -6,13 +6,45 @@
     transition: transform 0.2s;
     cursor: pointer;
     background: white;
-    width: 200px;
     display: flex;
     flex-direction: column;
+    width: fit-content;
+}
+
+.book-cover-container {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.book-info {
+    padding: 1rem;
+    margin-top: auto;
+}
+
+.book-cover {
+    width: 250px;
+    border-radius: 4px;
 }
 
 .book-card:hover {
     transform: translateY(-3px);
+}
+
+@media (max-width: 760px) {
+    .book-cover {
+        width: 180px;
+    }
+    .book-info {
+        width: 80px;
+    }
+}
+
+@media (max-width: 380px) {
+    .book-cover {
+        width: 130px;
+    }
+    .book-info {
+        width: 80px;
+    }
 }
 
 /* Стили статусов */
@@ -95,10 +127,7 @@
     backdrop-filter: blur(2px);
 }
 
-.book-info {
-    padding: 1rem;
-    margin-top: auto;
-}
+
 
 .author {
     color: #666;
