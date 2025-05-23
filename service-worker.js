@@ -1,9 +1,9 @@
 ﻿// public/service-worker.js
-const CACHE_NAME = 'v1';
-const DYNAMIC_CACHE = 'dynamic-v1';
-const OFFLINE_PAGE = '/offline.html';
+const CACHE_NAME = 'v2';
+const DYNAMIC_CACHE = 'dynamic-v2';
+const OFFLINE_PAGE = "./offline.html";
 
-const staticAssets = ["./"];
+const staticAssets = ["./", "./placeholder-cover.png", OFFLINE_PAGE];
 self.addEventListener('install', async (event) => {
     const cache = await caches.open(CACHE_NAME);
     await cache.addAll(staticAssets);
@@ -17,21 +17,34 @@ self.addEventListener('fetch', (event) => {
     // Кэшируем API запросы к контенту книг
     if (url.pathname.endsWith('/text')) {
         event.respondWith(
-            caches.match(event.request)
-                .then(cached => cached || fetch(event.request)
-                ));
+            caches.match(event.request).then(cached => {
+                const fetchPromise = fetch(event.request).then(networkResponse => {
+                    const clone = networkResponse.clone();
+                    caches.open(DYNAMIC_CACHE).then(cache => cache.put(event.request, clone));
+                    return networkResponse;
+                });
+                return cached || fetchPromise.catch(() => caches.match('/offline.html'));
+            })
+        );
         return;
     }
 
+    // Обработка текста книги
+    if (url.pathname.endsWith('/text')) {
+        event.respondWith(
+            caches.match(event.request).then(cached => cached || fetch(event.request))
+        );
+        return;
+    }
+
+    // Навигационные запросы
     if (event.request.mode === 'navigate') {
         event.respondWith(
-            fetch(event.request)
-                .catch(() => caches.match(OFFLINE_PAGE))
+            fetch(event.request).catch(() => caches.match(OFFLINE_PAGE))
         );
     } else {
         event.respondWith(
-            caches.match(event.request)
-                .then(response => response || fetch(event.request))
+            caches.match(event.request).then(res => res || fetch(event.request))
         );
     }
 });
