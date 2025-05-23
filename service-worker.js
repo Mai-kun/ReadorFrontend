@@ -50,13 +50,25 @@ self.addEventListener('fetch', (event) => {
     }
 });
 
+// service-worker.js
 self.addEventListener('message', (event) => {
     if (event.data.action === 'CACHE_BOOK') {
+        const url = event.data.payload.url;
+        const content = JSON.stringify(event.data.payload.content);
+
         caches.open('dynamic-v2').then(cache => {
-            const response = new Response(JSON.stringify(event.data.payload.content), {
-                headers: { 'Content-Type': 'application/json' }
+            const response = new Response(content, {
+                headers: {'Content-Type': 'application/json'}
             });
-            cache.put(event.data.payload.url, response);
+            cache.put(url, response);
         });
     }
+});
+
+self.addEventListener('activate', event => {
+    event.waitUntil(
+        self.clients.claim().then(() => {
+            console.log('Service Worker активирован и контролирует страницу');
+        })
+    );
 });
