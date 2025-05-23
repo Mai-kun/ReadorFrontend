@@ -52,15 +52,11 @@ self.addEventListener('fetch', (event) => {
 
 self.addEventListener('message', (event) => {
     if (event.data.action === 'CACHE_BOOK') {
-        const { url, content } = event.data.payload;
-        event.waitUntil(
-            caches.open(DYNAMIC_CACHE)
-                .then(cache => {
-                    const response = new Response(JSON.stringify(content), {
-                        headers: { 'Content-Type': 'application/json' }
-                    });
-                    return cache.put(url, response);
-                })
-        );
+        caches.open('dynamic-v2').then(cache => {
+            const response = new Response(JSON.stringify(event.data.payload.content), {
+                headers: { 'Content-Type': 'application/json' }
+            });
+            cache.put(event.data.payload.url, response);
+        });
     }
 });
