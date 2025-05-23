@@ -10,6 +10,7 @@ self.addEventListener('install', (event) => {
                 '/',
                 '/index.html',
                 '/manifest.json',
+                '/favicon.ico',
                 '/static/js/bundle.js',
                 OFFLINE_PAGE,
                 //'/placeholder-cover.jpg'
