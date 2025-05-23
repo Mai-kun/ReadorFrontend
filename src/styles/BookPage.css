@@ -195,3 +195,20 @@
 .delete-button:hover {
     background-color: #c82333;
 }
+
+.offline-button {
+    background: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background 0.3s;
+}
+
+.offline-button:hover {
+    background: #45a049;
+}

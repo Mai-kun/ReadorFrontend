@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/BookCard.css';
@@ -6,6 +6,33 @@ import '../styles/BookCard.css';
 const BookCard = ({ book }) => {
     const navigate = useNavigate();
     const { user } = useAuth();
+    const [isAvailableOffline, setIsAvailableOffline] = useState(false);
+    const bookId = book.id;
+
+    useEffect(() => {
+        const checkOfflineAvailability = async () => {
+            try {
+                const [contentCache, dataCache] = await Promise.all([
+                    caches.open('dynamic-v2'),
+                    caches.open('dynamic-v2')
+                ]);
+
+                const hasContent = await contentCache.match(
+                    `https://readora.cloudpub.ru/api/books/${bookId}/text`
+                );
+
+                const hasData = await dataCache.match(
+                    `https://readora.cloudpub.ru/api/books/${bookId}`
+                );
+
+                setIsAvailableOffline(!!hasContent && !!hasData);
+            } catch (error) {
+                console.error('Ошибка проверки кэша:', error);
+            }
+        };
+
+        checkOfflineAvailability();
+    }, [bookId]);
     
     const getStatusStyle = () => {
         if (book.status === 'Pending') return 'moderation-pending';
@@ -20,6 +47,11 @@ const BookCard = ({ book }) => {
             role="button"
             tabIndex={0}
         >
+            {isAvailableOffline && (
+                <div className="offline-badge" title="Доступно оффлайн">
+                    📴
+                </div>
+            )}
             <img
                 src={book.coverUrl || '/placeholder-cover.jpg'}
                 alt={book.title}

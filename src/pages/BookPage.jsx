@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { booksApi, commentsApi } from '../api/auth';
 import { useAuth } from '../context/AuthContext';
 import { CommentForm } from '../components/CommentForm';
+import OfflineReaderButton from '../components/OfflineReaderButton';
 import '../styles/BookPage.css';
 
 const BookPage = () => {
@@ -14,7 +15,7 @@ const BookPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
     const navigate = useNavigate();
-    
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -31,10 +32,12 @@ const BookPage = () => {
                 setLoading(false);
             }
         };
-        
+
         fetchData();
     }, [id]);
 
+    const getBookContentUrl = () => `https://readora.cloudpub.ru/api/books/${id}/text`;
+    
     const handleNewComment = async () => {
         const commentsRes = await commentsApi.getComments(id);
         setComments(commentsRes.data);
@@ -78,14 +81,19 @@ const BookPage = () => {
                 </div>
             </div>
 
-
+            <div className="offline-controls">
+                <OfflineReaderButton
+                    bookId={id}
+                />
+            </div>
+            
             <button
                 className="read-button"
                 onClick={() => navigate(`/book/${book.id}/read`)}
             >
                 Читать
             </button>
-
+            
             <div className="comments-section">
                 <h2>Комментарии ({comments.length})</h2>
 
