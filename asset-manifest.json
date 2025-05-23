@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/readora-site/static/css/main.962ef8ea.css",
-    "main.js": "/readora-site/static/js/main.71e66a16.js",
+    "main.js": "/readora-site/static/js/main.158a0083.js",
     "static/js/453.2073333b.chunk.js": "/readora-site/static/js/453.2073333b.chunk.js",
     "static/media/logo-icon.svg": "/readora-site/static/media/logo-icon.21268a41504eb706577f42a03a996c3e.svg",
     "index.html": "/readora-site/index.html",
     "main.962ef8ea.css.map": "/readora-site/static/css/main.962ef8ea.css.map",
-    "main.71e66a16.js.map": "/readora-site/static/js/main.71e66a16.js.map",
+    "main.158a0083.js.map": "/readora-site/static/js/main.158a0083.js.map",
     "453.2073333b.chunk.js.map": "/readora-site/static/js/453.2073333b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.962ef8ea.css",
-    "static/js/main.71e66a16.js"
+    "static/js/main.158a0083.js"
   ]
 }
