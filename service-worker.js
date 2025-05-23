@@ -9,8 +9,7 @@ self.addEventListener('install', (event) => {
             .then(cache => cache.addAll([
                 '/',
                 '/index.html',
-                '/manifest.json',
-                '/favicon.ico',
+                '/static/manifest.json',
                 '/static/js/bundle.js',
                 OFFLINE_PAGE,
                 //'/placeholder-cover.jpg'
@@ -22,7 +21,7 @@ self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url);
 
     // Кэшируем API запросы к контенту книг
-    if (url.pathname.startsWith('/api/books/') && url.pathname.endsWith('/text')) {
+    if (url.pathname.endsWith('/text')) {
         event.respondWith(
             caches.match(event.request)
                 .then(cached => cached || fetch(event.request)
