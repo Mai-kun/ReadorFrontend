@@ -3,15 +3,11 @@ const CACHE_NAME = 'v1';
 const DYNAMIC_CACHE = 'dynamic-v1';
 const OFFLINE_PAGE = '/offline.html';
 
+const staticAssets = ["./", "./index.html", "./js/app.js", "./css/styles.css"];
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(cache => cache.addAll([
-                "./",
-                "./index.html",
-                "./css/styles.css",
-                "./offline.html",
-            ]))
+            .then(cache => cache.addAll(staticAssets))
     );
     console.log("install event");
 });
