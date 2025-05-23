@@ -7,13 +7,13 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => cache.addAll([
-                '/',
-                '/index.html',
-                '/static/manifest.json',
-                OFFLINE_PAGE,
-                //'/placeholder-cover.jpg'
+                "./",
+                "./index.html",
+                "./css/styles.css",
+                "./offline.html",
             ]))
     );
+    console.log("install event");
 });
 
 self.addEventListener('fetch', (event) => {
