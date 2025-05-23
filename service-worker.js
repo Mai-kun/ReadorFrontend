@@ -13,7 +13,6 @@ self.addEventListener('install', async (event) => {
 
 self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url);
-    console.log("fetch event", url.pathname);
     
     // Кэшируем API запросы к контенту книг
     if (url.pathname.endsWith('/text')) {
