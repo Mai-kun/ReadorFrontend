@@ -1,48 +1,58 @@
-﻿const CACHE_NAME = "readora-cache-v1";
-const urlsToCache = [
-    "/",
-    "/index.html",
-    "/favicon.ico",
-    "/manifest.json",
-    "/icons/icon-192x192",
-    "/icons/icon-512x512.png",
-    // Добавьте сюда другие файлы, которые нужно кэшировать
-];
+﻿// public/service-worker.js
+const CACHE_NAME = 'v1';
+const DYNAMIC_CACHE = 'dynamic-v1';
+const OFFLINE_PAGE = '/offline.html';
 
-self.addEventListener("install", (event) => {
-    // Предварительное кэширование
+self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            return cache.addAll(urlsToCache);
-        })
+        caches.open(CACHE_NAME)
+            .then(cache => cache.addAll([
+                '/',
+                '/index.html',
+                '/manifest.json',
+                '/static/js/bundle.js',
+                OFFLINE_PAGE,
+                //'/placeholder-cover.jpg'
+            ]))
     );
 });
 
-self.addEventListener("activate", (event) => {
-    // Удаление старых кэшей
-    event.waitUntil(
-        caches.keys().then((cacheNames) =>
-            Promise.all(
-                cacheNames.map((cacheName) => {
-                    if (cacheName !== CACHE_NAME) {
-                        return caches.delete(cacheName);
-                    }
+self.addEventListener('fetch', (event) => {
+    const url = new URL(event.request.url);
+
+    // Кэшируем API запросы к контенту книг
+    if (url.pathname.startsWith('/api/books/') && url.pathname.endsWith('/text')) {
+        event.respondWith(
+            caches.match(event.request)
+                .then(cached => cached || fetch(event.request)
+                ));
+        return;
+    }
+
+    if (event.request.mode === 'navigate') {
+        event.respondWith(
+            fetch(event.request)
+                .catch(() => caches.match(OFFLINE_PAGE))
+        );
+    } else {
+        event.respondWith(
+            caches.match(event.request)
+                .then(response => response || fetch(event.request))
+        );
+    }
+});
+
+self.addEventListener('message', (event) => {
+    if (event.data.action === 'CACHE_BOOK') {
+        const { url, content } = event.data.payload;
+        event.waitUntil(
+            caches.open(DYNAMIC_CACHE)
+                .then(cache => {
+                    const response = new Response(JSON.stringify(content), {
+                        headers: { 'Content-Type': 'application/json' }
+                    });
+                    return cache.put(url, response);
                 })
-            )
-        )
-    );
-});
-
-self.addEventListener("fetch", (event) => {
-    // Возвращаем кэш или делаем сетевой запрос
-    event.respondWith(
-        caches.match(event.request).then((response) => {
-            return (
-                response ||
-                fetch(event.request).catch(() =>
-                    caches.match("/offline.html") // если нужно, можно добавить offline fallback
-                )
-            );
-        })
-    );
+        );
+    }
 });
