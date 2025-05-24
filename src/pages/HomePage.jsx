@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {booksApi, genresApi} from '../api/auth';
+import { booksApi, genresApi } from '../api/auth';
 import BookCard from '../components/BookCard';
 import GenreFilter from '../components/GenreFilter';
+import InstallBanner from '../components/InstallBanner'; // ✅
 import '../styles/HomePage.css';
 
 const HomePage = () => {
@@ -12,14 +13,10 @@ const HomePage = () => {
     const [error, setError] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
 
-    const [deferredPrompt, setDeferredPrompt] = useState(null);
-    const [showInstallBanner, setShowInstallBanner] = useState(false);
-    
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
             try {
-                // Пытаемся получить данные из кэша
                 const cache = await caches.open('dynamic-v2');
                 const cachedResponse = await cache.match(booksApi.getBooks.url);
 
@@ -28,7 +25,6 @@ const HomePage = () => {
                     setBooks(cachedData.data);
                 }
 
-                // Загрузка свежих данных
                 const [booksResponse, genresResponse] = await Promise.all([
                     booksApi.getBooks({
                         genre: selectedGenre,
@@ -37,7 +33,6 @@ const HomePage = () => {
                     genresApi.getGenres()
                 ]);
 
-                // Обновление кэша
                 const newCache = await caches.open('dynamic-v2');
                 const response = new Response(JSON.stringify(booksResponse.data), {
                     headers: {'Content-Type': 'application/json'}
@@ -60,41 +55,9 @@ const HomePage = () => {
         return () => clearTimeout(debounceTimer);
     }, [selectedGenre, searchQuery]);
 
-    useEffect(() => {
-        const handler = (e) => {
-            e.preventDefault();
-            setDeferredPrompt(e);
-            setShowInstallBanner(true);
-        };
-
-        window.addEventListener('beforeinstallprompt', handler);
-
-        return () => {
-            window.removeEventListener('beforeinstallprompt', handler);
-        };
-    }, []);
-
-    const handleInstallClick = async () => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            const { outcome } = await deferredPrompt.userChoice;
-            if (outcome === 'accepted') {
-                console.log('Установка приложения подтверждена');
-            }
-            setDeferredPrompt(null);
-            setShowInstallBanner(false);
-        }
-    };
-    
     return (
         <div className="home-layout">
-            {showInstallBanner && (
-                <div className="install-banner">
-                    <p>Установите это приложение для быстрого доступа!</p>
-                    <button onClick={handleInstallClick}>Установить</button>
-                </div>
-            )}
-
+            <InstallBanner /> {/* ✅ Показываем баннер через контекст */}
             <div className="home-page">
                 <h1>Библиотека</h1>
                 <div className="search-filters">

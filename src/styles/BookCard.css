@@ -11,6 +11,15 @@
     width: fit-content;
 }
 
+.book-cover {
+    width: 250px;
+    min-height: 370px;
+}
+
+.book-info {
+    width: 200px;
+}
+
 .offline-badge {
     position: absolute;
     top: 10px;
@@ -28,12 +37,6 @@
 
 .book-info {
     padding: 1rem;
-    margin-top: auto;
-}
-
-.book-cover {
-    width: 250px;
-    border-radius: 4px;
 }
 
 .book-card:hover {
@@ -45,7 +48,8 @@
         width: 180px;
     }
     .book-info {
-        width: 80px;
+        width: 70px;
+        padding: 0.8rem;
     }
 }
 
@@ -55,6 +59,7 @@
     }
     .book-info {
         width: 80px;
+        padding: 0.5rem;
     }
 }
 
@@ -80,6 +85,18 @@
     z-index: 2;
 }
 
+@media (max-width: 760px) {
+    .moderation-pending::after {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .moderation-pending::after {
+        font-size: 1rem;
+    }
+}
+
 .moderation-rejected {
     position: relative;
     overflow: hidden;
@@ -99,6 +116,18 @@
     font-size: 2rem;
     padding: 4px 0;
     z-index: 2;
+}
+
+@media (max-width: 760px) {
+    .moderation-rejected::after {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .moderation-rejected::after {
+        font-size: 1rem;
+    }
 }
 
 /* Фоновое затемнение */
