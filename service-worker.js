@@ -32,13 +32,23 @@ self.addEventListener('fetch', (event) => {
     // Навигационные запросы
     if (event.request.mode === 'navigate') {
         event.respondWith(
-            fetch(event.request).catch(() => caches.match(OFFLINE_PAGE))
+            fetch(event.request)
+                .catch(async () => {
+                    const cache = await caches.open(OFFLINE_CACHE);
+                    const offlineBooks = await cache.keys();
+                    if (offlineBooks.length > 0) {
+                        return Response.redirect('/offline');
+                    }
+                    return caches.match(OFFLINE_PAGE);
+                })
         );
-    } else {
-        event.respondWith(
-            caches.match(event.request).then(res => res || fetch(event.request))
-        );
+        return;
     }
+
+    event.respondWith(
+        caches.match(event.request)
+            .then(response => response || fetch(event.request))
+    );
 });
 
 // service-worker.js

@@ -1,15 +1,18 @@
 ﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Оффлайн библиотека</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оффлайн режим</title>
+    <script>
+        if (navigator.serviceWorker) {
+            navigator.serviceWorker.ready.then(registration => {
+                registration.active.postMessage({ type: 'OFFLINE_REDIRECT' });
+            });
+        }
+    </script>
 </head>
 <body>
 <div id="root"></div>
-<script>
-    // Редиректим на офлайн-страницу React-приложения
-    window.location.href = "/offline";
-</script>
 </body>
 </html>
