@@ -3,7 +3,7 @@ const CACHE_NAME = 'v2';
 const DYNAMIC_CACHE = 'dynamic-v2';
 const OFFLINE_PAGE = "./offline.html";
 
-const staticAssets = ["./", "./placeholder-cover.png", OFFLINE_PAGE, '/offline'];
+const staticAssets = ["./", "./placeholder-cover.png", OFFLINE_PAGE, "index.html"];
 self.addEventListener('install', async (event) => {
     const cache = await caches.open(CACHE_NAME);
     await cache.addAll(staticAssets);
@@ -33,13 +33,17 @@ self.addEventListener('fetch', (event) => {
     // Навигационные запросы
     if (event.request.mode === 'navigate') {
         event.respondWith(
-            fetch(event.request).catch(async () => {
-                // Пытаемся найти закэшированные книги
-                const cache = await caches.open(CACHE_NAME);
-                const booksResponse = await cache.match(`${basePath}offline`);
+            fetch(event.request)
+                .catch(async () => {
+                    const cache = await caches.open(CACHE_NAME);
+                    // Проверяем наличие офлайн-данных
+                    const hasCachedBooks = (await cache.keys())
+                        .some(req => req.url.includes('/books/'));
 
-                return booksResponse || caches.match(OFFLINE_PAGE);
-            })
+                    return hasCachedBooks
+                        ? Response.redirect(`${basePath}index.html#/offline`)
+                        : cache.match(OFFLINE_PAGE);
+                })
         );
     } else {
         event.respondWith(

@@ -1,14 +1,14 @@
 ﻿<!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Офлайн режим</title>
+    <meta charset="utf-8">
+    <title>Офлайн-режим</title>
     <script>
         // Редирект на React-роутер
-        if (navigator.serviceWorker) {
-            navigator.serviceWorker.ready.then(reg => {
-                window.location.href = '/readora-site/offline';
-            });
+        if (window.location.hash) {
+            window.location = window.location.hash.replace('#', '');
+        } else {
+            window.location.href = '/';
         }
     </script>
 </head>
