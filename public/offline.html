@@ -1,17 +1,15 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
-    <title>Оффлайн режим</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 2rem;
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Оффлайн библиотека</title>
 </head>
 <body>
-<h1>Вы находитесь в оффлайн-режиме</h1>
-<p>Для просмотра этой страницы требуется интернет-соединение</p>
+<div id="root"></div>
+<script>
+    // Редиректим на офлайн-страницу React-приложения
+    window.location.href = "/offline";
+</script>
 </body>
 </html>

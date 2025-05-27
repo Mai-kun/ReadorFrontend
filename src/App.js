@@ -10,6 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import BookPage from "./pages/BookPage";
 import ReaderPage from "./pages/ReaderPage";
 import ModerationPage from "./pages/ModerationPage";
+import OfflineLibrary from "./pages/OfflineLibrary";
 
 function App() {
     return (
@@ -39,7 +40,9 @@ function App() {
                             </ProtectedRoute>
                         }
                     />
-                    
+
+                    <Route path="/offline" element={<OfflineLibrary />} />
+
                     <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
             </HashRouter>

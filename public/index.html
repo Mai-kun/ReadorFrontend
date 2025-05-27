@@ -36,22 +36,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker
-                .register("/readora-site/service-worker.js", { scope: "/readora-site/" })
-                .then(reg => {
-                  // Форсируем активацию нового SW
-                  reg.update().then(() => {
-                    if (reg.active) reg.active.postMessage({type: 'SKIP_WAITING'});
-                  });
-                })
-                .catch(err => console.log('SW registration failed:', err));
-      });
-    }
-  </script>
-  
   </body>
 </html>

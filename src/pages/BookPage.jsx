@@ -35,8 +35,6 @@ const BookPage = () => {
 
         fetchData();
     }, [id]);
-
-    const getBookContentUrl = () => `https://readora.cloudpub.ru/api/books/${id}/text`;
     
     const handleNewComment = async () => {
         const commentsRes = await commentsApi.getComments(id);
