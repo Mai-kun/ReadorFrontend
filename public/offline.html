@@ -1,15 +1,18 @@
 ﻿<!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Оффлайн библиотека</title>
+    <meta charset="utf-8">
+    <title>Офлайн-режим</title>
+    <script>
+        // Редирект на React-роутер
+        if (window.location.hash) {
+            window.location = window.location.hash.replace('#/', '');
+        } else {
+            window.location.href = '/readora-site/#/offline';
+        }
+    </script>
 </head>
 <body>
 <div id="root"></div>
-<script>
-    // Редиректим на офлайн-страницу React-приложения
-    window.location.href = "/offline";
-</script>
 </body>
 </html>
