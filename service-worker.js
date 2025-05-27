@@ -3,7 +3,7 @@ const CACHE_NAME = 'v2';
 const DYNAMIC_CACHE = 'dynamic-v2';
 const OFFLINE_PAGE = "./offline.html";
 
-const staticAssets = ["./", "./placeholder-cover.png"];
+const staticAssets = ["./", "./placeholder-cover.png", OFFLINE_PAGE];
 self.addEventListener('install', async (event) => {
     const cache = await caches.open(CACHE_NAME);
     await cache.addAll(staticAssets);
