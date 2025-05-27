@@ -2,12 +2,12 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Оффлайн режим</title>
+    <title>Офлайн режим</title>
     <script>
+        // Редирект на React-роутер
         if (navigator.serviceWorker) {
-            navigator.serviceWorker.ready.then(registration => {
-                registration.active.postMessage({ type: 'OFFLINE_REDIRECT' });
+            navigator.serviceWorker.ready.then(reg => {
+                window.location.href = '/offline';
             });
         }
     </script>

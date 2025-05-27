@@ -1,9 +1,9 @@
 ﻿// public/service-worker.js
 const CACHE_NAME = 'v2';
 const DYNAMIC_CACHE = 'dynamic-v2';
-const OFFLINE_PAGE = "./offline.html";
+const OFFLINE_PAGE = "/offline.html";
 
-const staticAssets = ["./", "./placeholder-cover.png", OFFLINE_PAGE];
+const staticAssets = ["./", "./placeholder-cover.png", OFFLINE_PAGE, "/offline"];
 self.addEventListener('install', async (event) => {
     const cache = await caches.open(CACHE_NAME);
     await cache.addAll(staticAssets);
@@ -12,6 +12,7 @@ self.addEventListener('install', async (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+    const basePath = '/readora-site/'; // Замените на имя вашего репозитория
     const url = new URL(event.request.url);
 
     // Кэшируем API запросы к контенту книг
@@ -32,23 +33,20 @@ self.addEventListener('fetch', (event) => {
     // Навигационные запросы
     if (event.request.mode === 'navigate') {
         event.respondWith(
-            fetch(event.request)
-                .catch(async () => {
-                    const cache = await caches.open(OFFLINE_CACHE);
-                    const offlineBooks = await cache.keys();
-                    if (offlineBooks.length > 0) {
-                        return Response.redirect('/offline');
-                    }
-                    return caches.match(OFFLINE_PAGE);
-                })
-        );
-        return;
-    }
+            fetch(event.request).catch(async () => {
+                // Пытаемся найти закэшированные книги
+                const cache = await caches.open(CACHE_NAME);
+                const booksResponse = await cache.match(`${basePath}offline`);
 
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => response || fetch(event.request))
-    );
+                return booksResponse || caches.match(OFFLINE_PAGE);
+            })
+        );
+    } else {
+        event.respondWith(
+            caches.match(event.request)
+                .then(response => response || fetch(event.request))
+        );
+    }
 });
 
 // service-worker.js
