@@ -58,11 +58,14 @@ const BookCard = ({ book }) => {
                 className="book-cover"
             />
             <div className="book-info">
-                <h3>{book.title}</h3>
+                <h3 className="book-title">{book.title}</h3>
                 <div className="genres">
-                    {book.genres.map(genre => (
-                        <span key={genre} className="genre-tag">{genre}</span>
+                    {book.genres.slice(0, 1).map((genre, index) => (
+                        <span key={index} className="genre-tag">{genre}</span>
                     ))}
+                    {book.genres.length > 1 && (
+                        <span className="genre-tag">...</span>
+                    )}
                 </div>
             </div>
         </div>

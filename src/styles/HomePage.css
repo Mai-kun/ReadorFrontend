@@ -14,6 +14,7 @@
 
 @media (max-width: 768px) {
     .books-grid {
+        gap: 0.3rem;
         grid-template-columns: repeat(2, 1fr);
     }
 
@@ -22,11 +23,7 @@
     }
 
     .description {
-        font-size: 0.8rem;
-    }
-
-    .author {
-        font-size: 0.75rem;
+        font-size: 0.6rem;
     }
 }
 
@@ -211,7 +208,6 @@
     display: flex;
     margin: 0 0 auto 0;
     padding: 2rem;
-    gap: 2rem;
 }
 
 /* Баннер слева */
@@ -223,7 +219,7 @@
     border-radius: 8px;
     height: fit-content;
     position: sticky;
-    top: 6rem;
+    top: 12rem;
     flex-shrink: 0;
 }
 
