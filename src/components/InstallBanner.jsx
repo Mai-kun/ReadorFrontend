@@ -1,5 +1,8 @@
 ﻿import React, { useContext } from 'react';
 import { PWAInstallContext } from '../context/PWAInstallContext';
+import bannerImage from '../assets/pwa-banner.png';
+import '../styles/InstallBanner.css';
+
 
 const InstallBanner = () => {
     const { isInstallAvailable, installApp } = useContext(PWAInstallContext);
@@ -8,8 +11,10 @@ const InstallBanner = () => {
 
     return (
         <div className="install-banner">
-            <p>Установите этот сайт как приложение для быстрого доступа!</p>
-            <button onClick={installApp}>Установить</button>
+            <img src={bannerImage} alt="Установите как приложение" className="install-banner-icon" />
+            <div className="install-banner-content">
+                <button onClick={installApp}>Установить</button>
+            </div>
         </div>
     );
 };
