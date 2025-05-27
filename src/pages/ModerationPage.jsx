@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { moderationApi } from '../api/auth';
 import '../styles/ModerationPage.css';
+import {TbYinYang} from "react-icons/tb";
 
 const ModerationPage = () => {
     const [books, setBooks] = useState([]);
@@ -14,13 +15,13 @@ const ModerationPage = () => {
     };
 
     const handleApprove = async (bookId) => {
-        moderationApi.approveBook(bookId, { comment: comments[bookId] || '' });
-        loadBooks(pagination.page.filter(b => b.id !== bookId));
+        await moderationApi.approveBook(bookId, { comment: comments[bookId] || '' });
+        await loadBooks(1);
     };
 
     const handleReject = async (bookId) => {
         moderationApi.rejectBook(bookId, { comment: comments[bookId] || '' });
-        loadBooks(pagination.page.filter(b => b.id !== bookId));
+        await loadBooks(1);
     };
 
 

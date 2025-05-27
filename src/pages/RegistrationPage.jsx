@@ -24,6 +24,7 @@ const RegistrationPage = () => {
         }
         try {
             await authApi.register(formData);
+            await authApi.checkAuth();
             navigate('/profile');
         } catch (err) {
             setError(err.response?.data?.message || 'Ошибка регистрации');

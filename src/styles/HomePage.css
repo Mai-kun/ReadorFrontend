@@ -1,7 +1,6 @@
 ﻿.home-page {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
     flex: 1;
     min-width: 0;
 }
@@ -15,7 +14,7 @@
 
 @media (max-width: 768px) {
     .books-grid {
-        grid-template-columns: repeat(2, 1fr); /* Три колонки */
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .book-info {

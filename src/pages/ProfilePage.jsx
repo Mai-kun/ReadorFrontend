@@ -3,13 +3,15 @@ import BookCard from '../components/BookCard';
 import '../styles/HomePage.css';
 import { userApi } from '../api/auth';
 import AddBookForm from "../components/AddBookForm";
+import {useNavigate} from "react-router-dom";
 
 export default function ProfilePage() {
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [showAddBookForm, setShowAddBookForm] = useState(false);
     const [userBooks, setUserBooks] = useState([]);
-
+    const navigate = useNavigate();
+    
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
@@ -52,6 +54,44 @@ export default function ProfilePage() {
                 </button>
             </div>
 
+            {profile.role === 'Moderator' && (
+                <button
+                    className="moderation-button"
+                    style={{
+                        marginTop: '10px',
+                        marginLeft: '12px',
+                        backgroundColor: '#f39c12',
+                        color: 'white',
+                        padding: '0.5rem 1.5rem',
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontWeight: '500',
+                        fontSize: '1rem',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                        outline: 'none',
+                    }}
+                    onClick={() => navigate('/moderation')}
+                    onMouseEnter={(e) => {
+                        e.target.style.backgroundColor = '#e08e0b';
+                        e.target.style.transform = 'scale(1.05)';
+                    }}
+                    onMouseLeave={(e) => {
+                        e.target.style.backgroundColor = '#f39c12';
+                        e.target.style.transform = 'scale(1)';
+                    }}
+                    onFocus={(e) => {
+                        e.target.style.boxShadow = '0 0 0 3px rgba(243, 156, 18, 0.3)';
+                    }}
+                    onBlur={(e) => {
+                        e.target.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.2)';
+                    }}
+                >
+                    Модерация
+                </button>
+            )}
+            
             {showAddBookForm && (
                 <div className="modal-overlay">
                     <AddBookForm
