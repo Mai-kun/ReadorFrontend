@@ -7,33 +7,24 @@ const staticAssets = ["./", "./placeholder-cover.png", OFFLINE_PAGE];
 self.addEventListener('install', async (event) => {
     const cache = await caches.open(CACHE_NAME);
     await cache.addAll(staticAssets);
-    
+    self.skipWaiting(); // 🔧 Принудительно активируем новый SW
     console.log("install event");
 });
 
 self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url);
-    
+
     // Кэшируем API запросы к контенту книг
     if (url.pathname.endsWith('/text')) {
         event.respondWith(
             caches.match(event.request).then(cached => {
                 const fetchPromise = fetch(event.request).then(networkResponse => {
                     const clone = networkResponse.clone();
-                    console.log("fetch promise", networkResponse);
                     caches.open(DYNAMIC_CACHE).then(cache => cache.put(event.request, clone));
                     return networkResponse;
                 });
-                return cached || fetchPromise.catch(() => caches.match('/offline.html'));
+                return cached || fetchPromise.catch(() => caches.match(OFFLINE_PAGE));
             })
-        );
-        return;
-    }
-
-    // Обработка текста книги
-    if (url.pathname.endsWith('/text')) {
-        event.respondWith(
-            caches.match(event.request).then(cached => cached || fetch(event.request))
         );
         return;
     }
@@ -51,19 +42,25 @@ self.addEventListener('fetch', (event) => {
 });
 
 // service-worker.js
-self.addEventListener('message', (event) => {
+self.addEventListener('message', async (event) => {
     if (event.data.action === 'CACHE_BOOK') {
-        const url = event.data.payload.url;
-        const content = JSON.stringify(event.data.payload.content);
-
-        caches.open('dynamic-v2').then(cache => {
-            const response = new Response(content, {
-                headers: {'Content-Type': 'application/json'}
+        try {
+            const cache = await caches.open(DYNAMIC_CACHE);
+            for (const { url, content } of event.data.payload) {
+                const response = new Response(JSON.stringify(content));
+                await cache.put(url, response);
+            }
+            self.clients.matchAll().then(clients => {
+                clients.forEach(client => client.postMessage({ action: 'CACHE_BOOK_SUCCESS' }));
             });
-            cache.put(url, response);
-        });
+        } catch (error) {
+            self.clients.matchAll().then(clients => {
+                clients.forEach(client => client.postMessage({ action: 'CACHE_BOOK_ERROR', error: error.message }));
+            });
+        }
     }
 });
+
 
 self.addEventListener('activate', event => {
     event.waitUntil(
