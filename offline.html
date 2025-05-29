@@ -4,12 +4,8 @@
     <meta charset="utf-8">
     <title>Офлайн-режим</title>
     <script>
-        // Редирект на React-роутер
-        if (window.location.hash) {
-            window.location = window.location.hash.replace('#/', '');
-        } else {
-            window.location.href = 'https://mai-kun.github.io/readora-site/#/offline';
-        }
+        const basePath = '/readora-site';
+        window.location.href = `${basePath}/#/offline`;
     </script>
 </head>
 <body>
