@@ -4,8 +4,8 @@ const DYNAMIC_CACHE = 'dynamic-v2';
 const OFFLINE_PAGE = "./offline.html";
 
 const staticAssets = [
-    "/",
-    "/placeholder-cover.png",
+    "./",
+    "./placeholder-cover.png",
     OFFLINE_PAGE,
     "index.html",
 ];
