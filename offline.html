@@ -5,7 +5,13 @@
     <title>Офлайн-режим</title>
     <script>
         const basePath = '/readora-site';
-        window.location.href = `${basePath}/#/offline`;
+        const targetPath = `${basePath}/#/offline`;
+
+        // Проверяем, не находимся ли мы уже на офлайн-странице
+        if (!window.location.href.includes('/offline')) {
+            // Перенаправляем на офлайн-роут
+            window.location.href = targetPath;
+        }
     </script>
 </head>
 <body>

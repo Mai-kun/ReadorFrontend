@@ -1,30 +1,43 @@
 ﻿// public/service-worker.js
+const basePath = '/readora-site';
 const CACHE_NAME = 'v2';
 const DYNAMIC_CACHE = 'dynamic-v2';
-const OFFLINE_PAGE = "./offline.html";
+const OFFLINE_PAGE = `${basePath}/offline.html`;
 
-const staticAssets = ["./", "./placeholder-cover.png", OFFLINE_PAGE, "index.html"];
+const staticAssets = [
+    `${basePath}/`,
+    `${basePath}/placeholder-cover.png`,
+    OFFLINE_PAGE,
+    `${basePath}/index.html`,
+    `${basePath}/manifest.json`,
+    // Добавляем основные ресурсы приложения
+    `${basePath}/static/js/main.js`,
+    `${basePath}/static/css/main.css`,
+    // Добавляем иконки и другие статические ресурсы
+];
+
 self.addEventListener('install', async (event) => {
     const cache = await caches.open(CACHE_NAME);
     await cache.addAll(staticAssets);
-    self.skipWaiting(); // 🔧 Принудительно активируем новый SW
-    console.log("install event");
+    self.skipWaiting();
+    console.log("Service Worker установлен");
 });
 
 self.addEventListener('fetch', (event) => {
-    const basePath = '/readora-site/'; // Замените на имя вашего репозитория
     const url = new URL(event.request.url);
 
-    // Кэшируем API запросы к контенту книг
+    // Обработка API запросов для контента книг
     if (url.pathname.endsWith('/text')) {
         event.respondWith(
             caches.match(event.request).then(cached => {
-                const fetchPromise = fetch(event.request).then(networkResponse => {
-                    const clone = networkResponse.clone();
-                    caches.open(DYNAMIC_CACHE).then(cache => cache.put(event.request, clone));
-                    return networkResponse;
-                });
-                return cached || fetchPromise.catch(() => caches.match(OFFLINE_PAGE));
+                return cached || fetch(event.request)
+                    .then(networkResponse => {
+                        const clone = networkResponse.clone();
+                        caches.open(DYNAMIC_CACHE)
+                            .then(cache => cache.put(event.request, clone));
+                        return networkResponse;
+                    })
+                    .catch(() => caches.match(OFFLINE_PAGE));
             })
         );
         return;
@@ -33,19 +46,14 @@ self.addEventListener('fetch', (event) => {
     // Навигационные запросы
     if (event.request.mode === 'navigate') {
         event.respondWith(
-            fetch(event.request)
-                .catch(async () => {
-                    const cache = await caches.open(CACHE_NAME);
-                    // Проверяем наличие офлайн-данных
-                    const hasCachedBooks = (await cache.keys())
-                        .some(req => req.url.includes('/books/'));
-
-                    return hasCachedBooks
-                        ? Response.redirect(`${basePath}index.html#/offline`)
-                        : cache.match(OFFLINE_PAGE);
-                })
+            fetch(event.request).catch(async () => {
+                // Всегда возвращаем офлайн-страницу при ошибке сети
+                return caches.match(OFFLINE_PAGE);
+            })
         );
-    } else {
+    }
+    // Статические ресурсы и другие запросы
+    else {
         event.respondWith(
             caches.match(event.request)
                 .then(response => response || fetch(event.request))
