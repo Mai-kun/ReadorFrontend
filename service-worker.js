@@ -1,5 +1,4 @@
 ﻿// public/service-worker.js
-const basePath = '/readora-site';
 const CACHE_NAME = 'v2';
 const DYNAMIC_CACHE = 'dynamic-v2';
 const OFFLINE_PAGE = `/offline.html`;
@@ -10,10 +9,6 @@ const staticAssets = [
     OFFLINE_PAGE,
     `/index.html`,
     `/manifest.json`,
-    // Добавляем основные ресурсы приложения
-    `/static/js/main.js`,
-    `/static/css/main.css`,
-    // Добавляем иконки и другие статические ресурсы
 ];
 
 self.addEventListener('install', async (event) => {
