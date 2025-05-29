@@ -16,8 +16,8 @@ root.render(
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/readora-site/service-worker.js').then(registration => {
-            console.log('Service Worker зарегистрирован:', registration);
+        navigator.serviceWorker.register('/readora-site/service-worker.js').then(() => {
+            console.log('Service Worker зарегистрирован:');
         }).catch(error => {
             console.error('Ошибка регистрации Service Worker:', error);
         });
