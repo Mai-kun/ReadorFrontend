@@ -52,12 +52,3 @@ export const moderationApi = {
     approveBook: (bookId, data) => api.post(`/moderation/approve/${bookId}`, data),
     rejectBook: (bookId, data) => api.post(`/moderation/reject/${bookId}`, data),
 };
-
-// Пример проверки через Etherscan
-const verifyTransaction = async (txHash) => {
-    const response = await fetch(
-        `https://api.etherscan.io/api?module=transaction&action=gettxinfo&txhash=${txHash}`
-    );
-    const data = await response.json();
-    return data.status === "1"; // 1 = успешная транзакция
-};

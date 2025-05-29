@@ -1,4 +1,4 @@
-﻿import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { useAuth } from '../context/AuthContext';
 import { booksApi, genresApi } from '../api/auth';
 import '../styles/AddBookForm.css';

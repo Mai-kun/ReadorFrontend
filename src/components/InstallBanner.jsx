@@ -1,4 +1,4 @@
-﻿import React, { useContext } from 'react';
+import React, { useContext } from 'react';
 import { PWAInstallContext } from '../context/PWAInstallContext';
 import bannerImage from '../assets/pwa-banner.png';
 import '../styles/InstallBanner.css';

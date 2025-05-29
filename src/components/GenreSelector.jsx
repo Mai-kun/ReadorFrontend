@@ -1,4 +1,4 @@
-﻿import '../styles/GenreSelector.css';
+import '../styles/GenreSelector.css';
 import '../styles/AddBookForm.css';
 import { useState } from 'react';
 

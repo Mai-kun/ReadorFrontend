@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { moderationApi } from '../api/auth';
 import '../styles/ModerationPage.css';
-import {TbYinYang} from "react-icons/tb";
 
 const ModerationPage = () => {
     const [books, setBooks] = useState([]);

@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/CashButton.css';
 import { apiUrl, booksApi } from "../api/auth";
 
