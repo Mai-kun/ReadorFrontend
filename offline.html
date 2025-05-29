@@ -4,13 +4,11 @@
     <meta charset="utf-8">
     <title>Офлайн-режим</title>
     <script>
-        const basePath = '/readora-site';
-        const targetPath = `${basePath}/#/offline`;
-
-        // Проверяем, не находимся ли мы уже на офлайн-странице
-        if (!window.location.href.includes('/offline')) {
-            // Перенаправляем на офлайн-роут
-            window.location.href = targetPath;
+        // Редирект на React-роутер
+        if (window.location.hash) {
+            window.location = window.location.hash.replace('#/', '');
+        } else {
+            window.location.href = '/readora-site/#/offline';
         }
     </script>
 </head>
