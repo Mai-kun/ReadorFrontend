@@ -1,14 +1,14 @@
 ﻿// public/service-worker.js
 const CACHE_NAME = 'v2';
 const DYNAMIC_CACHE = 'dynamic-v2';
-const OFFLINE_PAGE = `/offline.html`;
+const OFFLINE_PAGE = "./offline.html";
 
 const staticAssets = [
-    `/`,
-    `/placeholder-cover.png`,
+    "/",
+    "/placeholder-cover.png",
     OFFLINE_PAGE,
-    `/index.html`,
-    `/manifest.json`,
+    "index.html",
+    "/manifest.json",
 ];
 
 self.addEventListener('install', async (event) => {
