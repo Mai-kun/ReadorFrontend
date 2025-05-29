@@ -8,7 +8,6 @@ const staticAssets = [
     "/placeholder-cover.png",
     OFFLINE_PAGE,
     "index.html",
-    "/manifest.json",
 ];
 
 self.addEventListener('install', async (event) => {
