@@ -2,17 +2,17 @@
 const basePath = '/readora-site';
 const CACHE_NAME = 'v2';
 const DYNAMIC_CACHE = 'dynamic-v2';
-const OFFLINE_PAGE = `${basePath}/offline.html`;
+const OFFLINE_PAGE = `/offline.html`;
 
 const staticAssets = [
-    `${basePath}/`,
-    `${basePath}/placeholder-cover.png`,
+    `/`,
+    `/placeholder-cover.png`,
     OFFLINE_PAGE,
-    `${basePath}/index.html`,
-    `${basePath}/manifest.json`,
+    `/index.html`,
+    `/manifest.json`,
     // Добавляем основные ресурсы приложения
-    `${basePath}/static/js/main.js`,
-    `${basePath}/static/css/main.css`,
+    `/static/js/main.js`,
+    `/static/css/main.css`,
     // Добавляем иконки и другие статические ресурсы
 ];
 
