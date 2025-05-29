@@ -47,10 +47,9 @@ const OfflineReaderButton = ({ bookId }) => {
         const checkCache = async () => {
             try {
                 const cache = await caches.open('dynamic-v2');
-                const baseUrl = apiUrl().defaults.baseURL;
                 const urls = [
-                    `${baseUrl}/books/${bookId}`,
-                    `${baseUrl}/books/${bookId}/text`
+                    `/readora-site/api/books/${bookId}`,
+                    `/readora-site/api/books/${bookId}/text`
                 ];
                 const responses = await Promise.all(urls.map(url => cache.match(url)));
                 setIsCached(responses.every(response => !!response));
@@ -80,16 +79,26 @@ const OfflineReaderButton = ({ bookId }) => {
         if (!swSupported || !book || !bookText) return;
         setIsCaching(true);
         try {
-            console.log("Попытка получить регистрацию Service Worker");
             const registration = await navigator.serviceWorker.ready;
             console.log("Регистрация Service Worker получена");
             if (registration.active) {
-                const baseUrl = apiUrl().defaults.baseURL;
                 registration.active.postMessage({
                     action: 'CACHE_BOOK',
                     payload: [
-                        { url: `${baseUrl}/books/${bookId}`, content: book },
-                        { url: `${baseUrl}/books/${bookId}/text`, content: bookText }
+                        {
+                            url: `/readora-site/api/books/${bookId}`,
+                            response: {
+                                body: JSON.stringify(book),
+                                headers: { 'Content-Type': 'application/json' }
+                            }
+                        },
+                        {
+                            url: `/readora-site/api/books/${bookId}/text`,
+                            response: {
+                                body: bookText.content,
+                                headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+                            }
+                        }
                     ]
                 });
             } else {

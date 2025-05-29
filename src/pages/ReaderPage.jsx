@@ -16,33 +16,33 @@ const ReaderPage = () => {
         const loadContent = async () => {
             try {
                 let content = '';
-                const apiUrl = booksApi.getTextContent(id).url;
+                const apiUrl = `/readora-site/api/books/${id}/text`;
                 const cache = await caches.open('dynamic-v2');
-
                 // Для офлайн-режима: только кэш
                 if (isOfflineMode) {
+                
                     const cachedResponse = await cache.match(apiUrl);
                     if (!cachedResponse) {
-                        throw new Error('Книга не доступна офлайн');
+                        setError('Книга не доступна офлайн');
+                        return;
                     }
-                    content = await cachedResponse.json();
+                    content = await cachedResponse.text();
                 }
                 // Для онлайн-режима: сеть -> кэш
-                else {
+                else { 
                     try {
                         const response = await booksApi.getTextContent(id);
-                        content = response.data.content;
-                        // Обновляем кэш
-                        const responseToCache = new Response(JSON.stringify(content), {
-                            headers: { 'Content-Type': 'application/json' }
+                        content = typeof response.data === 'object' ? response.data.content : response.data;
+                        const responseToCache = new Response(content, {
+                            headers: { 'Content-Type': 'text/plain; charset=utf-8' }
                         });
                         await cache.put(apiUrl, responseToCache);
                     } catch (networkError) {
                         const cachedResponse = await cache.match(apiUrl);
                         if (cachedResponse) {
-                            content = await cachedResponse.json();
+                            content = await cachedResponse.text();
                         } else {
-                            throw networkError;
+                            setError(networkError);
                         }
                     }
                 }
@@ -51,7 +51,7 @@ const ReaderPage = () => {
                 setError('');
             } catch (err) {
                 setError(isOfflineMode
-                    ? 'Книга недоступна в офлайн-режиме'
+                    ? 'Ошибка: Книга недоступна в офлайн-режиме'
                     : 'Не удалось загрузить текст книги');
                 if (isOfflineMode) {
                     navigate('/offline', { replace: true });

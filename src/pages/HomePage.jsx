@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { booksApi, genresApi } from '../api/auth';
 import BookCard from '../components/BookCard';
 import GenreFilter from '../components/GenreFilter';
-import InstallBanner from '../components/InstallBanner'; // ✅
+import InstallBanner from '../components/InstallBanner';
 import '../styles/HomePage.css';
 
 const HomePage = () => {
@@ -18,7 +18,7 @@ const HomePage = () => {
             setIsLoading(true);
             try {
                 const cache = await caches.open('dynamic-v2');
-                const cachedResponse = await cache.match(booksApi.getBooks.url);
+                const cachedResponse = await cache.match(`/api/books`);
 
                 if (cachedResponse) {
                     const cachedData = await cachedResponse.json();
@@ -37,7 +37,7 @@ const HomePage = () => {
                 const response = new Response(JSON.stringify(booksResponse.data), {
                     headers: {'Content-Type': 'application/json'}
                 });
-                await newCache.put(booksApi.getBooks.url, response);
+                await newCache.put(`/api/books`, response);
 
                 setBooks(booksResponse.data);
                 setGenres(genresResponse.data.map(g => g.name));

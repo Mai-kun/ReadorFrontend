@@ -58,16 +58,21 @@ self.addEventListener('message', async (event) => {
     if (event.data.action === 'CACHE_BOOK') {
         try {
             const cache = await caches.open(DYNAMIC_CACHE);
-            for (const { url, content } of event.data.payload) {
-                const response = new Response(JSON.stringify(content));
-                await cache.put(url, response);
+
+            for (const { url, response } of event.data.payload) {
+                const { body, headers } = response;
+                await cache.put(url, new Response(body, { headers }));
             }
-            self.clients.matchAll().then(clients => {
-                clients.forEach(client => client.postMessage({ action: 'CACHE_BOOK_SUCCESS' }));
+
+            const clients = await self.clients.matchAll();
+            clients.forEach(client => {
+                client.postMessage({ action: 'CACHE_BOOK_SUCCESS' });
             });
+
         } catch (error) {
-            self.clients.matchAll().then(clients => {
-                clients.forEach(client => client.postMessage({ action: 'CACHE_BOOK_ERROR', error: error.message }));
+            const clients = await self.clients.matchAll();
+            clients.forEach(client => {
+                client.postMessage({ action: 'CACHE_BOOK_ERROR', error: error.message });
             });
         }
     }
