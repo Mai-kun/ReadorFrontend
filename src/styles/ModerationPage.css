@@ -40,12 +40,14 @@
 }
 
 .approve-btn {
+    cursor: pointer;
     background: #27ae60;
     color: white;
     padding: 0.5rem 1.5rem;
 }
 
 .reject-btn {
+    cursor: pointer;
     background: #e74c3c;
     color: white;
     padding: 0.5rem 1.5rem;
