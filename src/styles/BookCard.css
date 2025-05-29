@@ -67,11 +67,11 @@
 
 @media (max-width: 760px) {
     .book-card {
-        width: 180px;
+        width: 200px;
     }
 
     .book-cover {
-        width: 180px;
+        width: 200px;
         min-height: 270px;
     }
 
@@ -80,18 +80,43 @@
     }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 420px) {
     .book-card {
-        width: 140px;
+        width: 150px;
     }
 
     .book-cover {
-        width: 140px;
+        width: 150px;
         min-height: 220px;
+        max-height: 150px;
+    }
+
+    .book-title {
+        font-size: 14px;
     }
 
     .book-info {
-        width: 100%;
+        width: 80%;
+    }
+}
+
+@media (max-width: 380px) {
+    .book-card {
+        width: 120px;
+    }
+
+    .book-cover {
+        width: 120px;
+        min-height: 180px;
+        max-height: 150px;
+    }
+    
+    .book-title {
+        font-size: 14px;
+    }
+    
+    .book-info {
+        width: 80%;
     }
 }
 
@@ -217,7 +242,18 @@
     background: #f0f0f0;
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
-    font-size: 0.8rem;
+}
+
+@media (min-width: 381px) {
+    .genre-tag {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .genre-tag {
+        font-size: 0.7rem;
+    }
 }
 
 .description {
