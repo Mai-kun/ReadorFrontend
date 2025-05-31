@@ -70,7 +70,7 @@ const RegistrationPage = () => {
                 </form>
 
                 <div className="auth-links">
-                    Уже есть аккаунт? <a href="/login">Войдите</a>
+                    Уже есть аккаунт? <a onClick={() => navigate('/login')}>Войдите</a>
                 </div>
             </div>
         </div>

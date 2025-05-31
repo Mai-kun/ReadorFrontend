@@ -78,7 +78,7 @@ const LoginPage = () => {
                         </form>
 
                         <div className="auth-links">
-                            Нет аккаунта? <a href="/register">Зарегистрируйтесь</a>
+                            Нет аккаунта? <a onClick={() => navigate('/register')}>Зарегистрируйтесь</a>
                         </div>
                     </>
                 )}
