@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { moderationApi } from '../api/auth';
 import '../styles/ModerationPage.css';
+import {useNavigate} from "react-router-dom";
 
 const ModerationPage = () => {
     const [books, setBooks] = useState([]);
     const [comments, setComments] = useState({});
     const [pagination, setPagination] = useState({ page: 1, total: 0 });
-
+    const navigate = useNavigate();
+    
     const loadBooks = async (page) => {
         const response = await moderationApi.getPendingBooks(page);
         setBooks(response.data.books);
@@ -35,8 +37,9 @@ const ModerationPage = () => {
             <div className="moderation-list">
                 {books.map(book => (
                     <div key={book.id} className="moderation-item">
-                        <div className="book-info">
-                            <h3>{book.title}</h3>
+                        <div className="book-info" >
+                            <h3 onClick={() => navigate(`/book/${book.id}`)}
+                                style={{ cursor: 'pointer' }}>{book.title}</h3>
                             <p>Автор: {book.author}</p>
                             <p>Жанры: {book.genres.join(', ')}</p>
                             <p>Дата загрузки: {new Date(book.uploadDate).toLocaleDateString()}</p>
