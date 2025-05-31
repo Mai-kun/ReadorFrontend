@@ -34,8 +34,9 @@
 }
 
 .book-cover {
-    width: 250px;
-    min-height: 370px;
+    width: 260px;
+    min-height: 390px;
+    object-fit:cover;
 }
 
 .book-info {
@@ -65,7 +66,7 @@
     transform: translateY(-3px);
 }
 
-@media (max-width: 760px) {
+@media (max-width: 950px) {
     .book-card {
         width: 200px;
     }
@@ -80,7 +81,22 @@
     }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 550px) {
+    .book-card {
+        width: fit-content;
+    }
+
+    .book-cover {
+        width: 180px;
+        min-height: 270px;
+    }
+
+    .book-info {
+        width: 140px;
+    }
+}
+
+@media (max-width: 520px) {
     .book-card {
         width: 150px;
     }

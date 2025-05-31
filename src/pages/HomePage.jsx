@@ -57,7 +57,7 @@ const HomePage = () => {
 
     return (
         <div className="home-layout">
-            <InstallBanner /> {/* ✅ Показываем баннер через контекст */}
+            <InstallBanner />
             <div className="home-page">
                 <h1>Библиотека</h1>
                 <div className="search-filters">
@@ -67,6 +67,7 @@ const HomePage = () => {
                             placeholder="Поиск по названию или автору..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
+                            aria-label="Поиск книг"
                         />
                     </div>
                     <GenreFilter
