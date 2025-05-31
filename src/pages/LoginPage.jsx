@@ -1,6 +1,6 @@
 // pages/LoginPage.js
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { authApi } from '../api/auth';
 import { useAuth } from '../context/AuthContext'; // Добавляем импорт
 import InputField from '../components/ui/InputField';
@@ -78,7 +78,7 @@ const LoginPage = () => {
                         </form>
 
                         <div className="auth-links">
-                            Нет аккаунта? <a onClick={() => navigate('/register')}>Зарегистрируйтесь</a>
+                            Нет аккаунта? <Link to="/register">Зарегистрируйтесь</Link>
                         </div>
                     </>
                 )}

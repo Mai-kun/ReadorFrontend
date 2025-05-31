@@ -1,6 +1,6 @@
 // pages/RegistrationPage.js
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import { authApi } from '../api/auth';
 import InputField from '../components/ui/InputField';
 import SubmitButton from '../components/ui/SubmitButton';
@@ -70,7 +70,7 @@ const RegistrationPage = () => {
                 </form>
 
                 <div className="auth-links">
-                    Уже есть аккаунт? <a onClick={() => navigate('/login')}>Войдите</a>
+                    Уже есть аккаунт? <Link to="/login">Войдите</Link>
                 </div>
             </div>
         </div>
