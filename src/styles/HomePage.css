@@ -8,8 +8,25 @@
 .books-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 3.2rem;
+    gap: 4.5rem;
     margin-top: 1rem;
+    justify-items: center;
+    
+}
+
+@media (max-width: 1200px) {
+    .books-grid {
+        gap: 0.3rem;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .book-info {
+        padding: 1rem;
+    }
+
+    .description {
+        font-size: 0.6rem;
+    }
 }
 
 @media (max-width: 768px) {
@@ -169,24 +186,24 @@
 /* Стили для поиска */
 .search-filters {
     display: grid;
-    height: 100px;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .search-bar {
-    width: 100%;
     align-self: center;
-    justify-content: center;
+    display: flex;
+    width: 100%;
 }
 
 .search-bar input {
-    width: clamp(100px, 80%, 100%);
+    width: 100%; /* Теперь занимает всю ширину контейнера */
     padding: 0.8rem 1.2rem;
     border: 2px solid #ddd;
     border-radius: 25px;
     font-size: 1rem;
     transition: all 0.3s ease;
-    align-self: center;
-    justify-content: center;
 }
 
 .search-bar input:focus {
@@ -207,28 +224,5 @@
     display: flex;
     margin: 0 0 auto 0;
     gap: 2rem;
-}
-
-@media (min-width: 1100px) {
-    .home-layout {
-        padding: 1rem 17rem 0 2rem;
-    }
-}
-
-@media (max-width: 1099px) {
-    .home-layout {
-        padding: 1rem 5rem 0 5rem;
-    }
-}
-
-@media (max-width: 700px) {
-    .home-layout {
-        padding: 1rem 2rem 0 2rem;
-    }
-}
-
-@media (max-width: 380px) {
-    .home-layout {
-        padding: 0 1rem 0 1rem;
-    }
+    padding: 1rem 2rem 0 2rem;
 }
