@@ -70,7 +70,7 @@ const BookPage = () => {
                 <div className="book-details">
                     <p className="author">Автор: {book.author}</p>
                     <p className="genre">Жанр: {book.genres.join(', ')}</p>
-                    <p className="description">{book.description}</p>
+                    <p className="book-description">{book.description}</p>
 
                     <div className="meta-info">
                         <p>Год издания: {book.publicationYear}</p>
