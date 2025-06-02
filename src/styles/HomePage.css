@@ -29,6 +29,21 @@
     }
 }
 
+@media (max-width: 1200px) {
+    .books-grid {
+        gap: 0.3rem;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .book-info {
+        padding: 1rem;
+    }
+
+    .description {
+        font-size: 0.6rem;
+    }
+}
+
 @media (max-width: 768px) {
     .books-grid {
         gap: 0.3rem;
