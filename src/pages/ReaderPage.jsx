@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { booksApi } from '../api/auth';
+import React, {useState, useEffect} from 'react';
+import {useParams, useNavigate, useLocation} from 'react-router-dom';
+import {booksApi} from '../api/auth';
 import '../styles/ReaderPage.css';
 
 const ReaderPage = () => {
-    const { id } = useParams();
+    const {id} = useParams();
     const location = useLocation();
     const navigate = useNavigate();
     const [textContent, setTextContent] = useState('');
@@ -29,12 +29,12 @@ const ReaderPage = () => {
                     content = await cachedResponse.text();
                 }
                 // Для онлайн-режима: сеть -> кэш
-                else { 
+                else {
                     try {
                         const response = await booksApi.getTextContent(id);
                         content = typeof response.data === 'object' ? response.data.content : response.data;
                         const responseToCache = new Response(content, {
-                            headers: { 'Content-Type': 'text/plain; charset=utf-8' }
+                            headers: {'Content-Type': 'text/plain; charset=utf-8'}
                         });
                         await cache.put(apiUrl, responseToCache);
                     } catch (networkError) {
@@ -54,7 +54,7 @@ const ReaderPage = () => {
                     ? 'Ошибка: Книга недоступна в офлайн-режиме'
                     : 'Не удалось загрузить текст книги');
                 if (isOfflineMode) {
-                    navigate('/offline', { replace: true });
+                    navigate('/offline', {replace: true});
                 }
             } finally {
                 setLoading(false);
@@ -89,7 +89,7 @@ const ReaderPage = () => {
                     <pre className="text-content">{textContent}</pre>
                 </div>
             )}
-        </div>
+            </div>
     );
 };
 
