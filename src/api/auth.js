@@ -52,3 +52,8 @@ export const moderationApi = {
     approveBook: (bookId, data) => api.post(`/moderation/approve/${bookId}`, data),
     rejectBook: (bookId, data) => api.post(`/moderation/reject/${bookId}`, data),
 };
+
+export const blockchainApi = {
+    getAmount: () => api.get('/blockchain/count'),
+    getBook: (bookId) => api.post(`/blockchain/${bookId}`, bookId),
+};
