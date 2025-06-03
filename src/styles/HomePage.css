@@ -241,3 +241,77 @@
     gap: 2rem;
     padding: 1rem 2rem 0 2rem;
 }
+
+/* Стили для раздела блокчейна */
+.blockchain-section {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.blockchain-button {
+    background-color: #4e54c8;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.blockchain-button:hover {
+    background-color: #3f44b5;
+    transform: translateY(-2px);
+}
+
+.blockchain-button:disabled {
+    background-color: #a0a4d9;
+    cursor: not-allowed;
+}
+
+.blockchain-books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.blockchain-book-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.blockchain-book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.blockchain-book-card h3 {
+    margin-top: 0;
+    color: #2c3e50;
+    font-size: 1.2rem;
+}
+
+.blockchain-book-card p {
+    margin: 0.5rem 0;
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.hash {
+    font-family: monospace;
+    background-color: #f1f2f6;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
