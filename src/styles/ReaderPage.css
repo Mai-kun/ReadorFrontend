@@ -120,3 +120,34 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.scroll-to-top {
+    position: fixed;
+    bottom: 24px;
+    right: 20px;
+    padding: 10px 14px;
+    font-size: 16px;
+    border: none;
+    border-radius: 50px;
+    background-color: #444;
+    color: #fff;
+    cursor: pointer;
+    opacity: 0.8;
+    z-index: 1000;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.scroll-to-top:hover {
+    background-color: #000;
+    transform: scale(1.05);
+}
+
+/* Адаптация для маленьких экранов */
+@media (max-width: 600px) {
+    .scroll-to-top {
+        bottom: 16px;
+        right: 16px;
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+}
