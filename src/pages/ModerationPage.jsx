@@ -6,23 +6,26 @@ import {useNavigate} from "react-router-dom";
 const ModerationPage = () => {
     const [books, setBooks] = useState([]);
     const [comments, setComments] = useState({});
+    const [allBooks, setAllBooks] = useState([]);
     const [pagination, setPagination] = useState({ page: 1, total: 0 });
+    const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate();
-    
-    const loadBooks = async (page) => {
+
+    const loadBooks = async (page, bookId) => {
         const response = await moderationApi.getPendingBooks(page);
-        setBooks(response.data.books);
+        setBooks(response.data.books.filter(book => book.id !== bookId));
+        setAllBooks(response.data.books.filter(book => book.id !== bookId));
         setPagination({ ...pagination, total: response.data.totalCount });
     };
 
     const handleApprove = async (bookId) => {
-        await moderationApi.approveBook(bookId, { comment: comments[bookId] || '' });
-        await loadBooks(1);
+        moderationApi.approveBook(bookId, { comment: comments[bookId] || '' });
+        await loadBooks(1, bookId);
     };
 
     const handleReject = async (bookId) => {
         moderationApi.rejectBook(bookId, { comment: comments[bookId] || '' });
-        await loadBooks(1);
+        await loadBooks(1, bookId);
     };
 
 
@@ -30,10 +33,28 @@ const ModerationPage = () => {
         loadBooks(1);
     }, []);
 
+    useEffect(() => {
+        const filtered = allBooks.filter(book =>
+            book.title.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setBooks(filtered);
+    }, [searchQuery, allBooks]);
+    
     return (
         <div className="moderation-page">
             <h1>Модерация книг</h1>
 
+            {/* Поисковое поле */}
+            <div className="search-bar">
+                <input
+                    type="text"
+                    placeholder="Поиск по названию..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    style={{marginBottom: '25px'}}
+                />
+            </div>
+            
             <div className="moderation-list">
                 {books.map(book => (
                     <div key={book.id} className="moderation-item">

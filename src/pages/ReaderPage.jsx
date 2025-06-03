@@ -10,6 +10,7 @@ const ReaderPage = () => {
     const [textContent, setTextContent] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [showScrollButton, setShowScrollButton] = useState(false);
     const isOfflineMode = location.search.includes('offline=true');
 
     useEffect(() => {
@@ -64,6 +65,15 @@ const ReaderPage = () => {
         loadContent();
     }, [id, isOfflineMode, navigate]);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            setShowScrollButton(window.scrollY > 100);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+    
     return (
         <div className="reader-container">
             <div className="reader-header">
@@ -88,6 +98,15 @@ const ReaderPage = () => {
                 <div className="content-wrapper">
                     <pre className="text-content">{textContent}</pre>
                 </div>
+            )}
+
+            {!loading && !error && showScrollButton && (
+                <button
+                    className="scroll-to-top"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                >
+                    ⬆ Наверх
+                </button>
             )}
             </div>
     );

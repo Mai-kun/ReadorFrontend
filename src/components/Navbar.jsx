@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { ReactComponent as LogoIcon } from '../assets/logo-icon.svg';
+import doorImage from '../assets/opendoor.png';
 import '../styles/Navbar.css';
 import '../styles/ProfilePage.css';
 import '../styles/LogoCsv.css';
@@ -68,7 +69,11 @@ const Navbar = () => {
                                 className="nav-item logout-btn"
                                 onClick={handleLogout}
                             >
-                                Выйти
+                                <img
+                                    src={doorImage}
+                                    alt="Выйти"
+                                    className="navbar-avatar"
+                                />
                             </button>
                         </div>
                     )}

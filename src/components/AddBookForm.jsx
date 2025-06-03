@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
 import { useAuth } from '../context/AuthContext';
-import { booksApi, genresApi } from '../api/auth';
+import {booksApi, genresApi, userApi} from '../api/auth';
 import '../styles/AddBookForm.css';
 import GenreSelector from "./GenreSelector";
 
-const AddBookForm = ({ onClose, onBookAdded }) => {
+const AddBookForm = ({ onClose }) => {
     const { user } = useAuth();
     const [formData, setFormData] = useState({
         title: '',
@@ -61,11 +61,10 @@ const AddBookForm = ({ onClose, onBookAdded }) => {
 
         try {
             setLoading(true);
-            const response = await booksApi.uploadBook(data);
-            onBookAdded(response.data);
+            await booksApi.uploadBook(data);
             onClose();
         } catch (err) {
-            setError(err.response?.data?.message || 'Ошибка при загрузке книги');
+            setError(err.response?.data || 'Ошибка при загрузке книги');
         } finally {
             setLoading(false);
         }
@@ -132,7 +131,15 @@ const AddBookForm = ({ onClose, onBookAdded }) => {
                     <input
                         type="file"
                         accept=".txt"
-                        onChange={(e) => setFormData({...formData, bookFile: e.target.files[0]})}
+                        onChange={(e) => {
+                            const file = e.target.files[0];
+                            if (file && !file.name.match(/\.txt$/i)) {
+                                alert('Допустим только файл формата .txt');
+                                e.target.value = '';
+                                return;
+                            }
+                            setFormData({ ...formData, bookFile: file });
+                        }}
                         required
                     />
                 </div>
@@ -142,7 +149,15 @@ const AddBookForm = ({ onClose, onBookAdded }) => {
                     <input
                         type="file"
                         accept="image/jpeg, image/png, image/webp"
-                        onChange={(e) => setFormData({...formData, coverImage: e.target.files[0]})}
+                        onChange={(e) => {
+                            const file = e.target.files[0];
+                            if (file && !file.name.match(/\.(jpe?g|png|webp)$/i)) {
+                                alert('Допустимые форматы: JPG, JPEG, PNG, WEBP');
+                                e.target.value = '';
+                                return;
+                            }
+                            setFormData({...formData, coverImage: file});
+                        }}
                         required
                     />
                 </div>
