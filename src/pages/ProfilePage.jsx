@@ -18,6 +18,7 @@ export default function ProfilePage() {
             try {
                 const res = await userApi.getMe();
                 setProfile(res.data);
+                setUserBooks(res.data.books);
             } catch (err) {
                 console.error('Profile fetch error:', err);
             } finally {
@@ -95,8 +96,12 @@ export default function ProfilePage() {
             {showAddBookForm && (
                 <div className="modal-overlay">
                     <AddBookForm
-                        onClose={() => setShowAddBookForm(false)}
-                        onBookAdded={(newBook) => setUserBooks([...userBooks, newBook])}
+                        onClose={
+                         async () => {
+                            setShowAddBookForm(false);
+                            const response = await userApi.getMe();
+                            setUserBooks(response.data.books);
+                        }}
                     />
                 </div>
             )}
@@ -119,7 +124,7 @@ export default function ProfilePage() {
                     <p className="empty-message">No books uploaded yet</p>
                 ) : (
                     <div className="books-grid">
-                        {profile.books.map(book => (
+                        {userBooks.map(book => (
                             <BookCard
                                 key={book.id}
                                 book={book}

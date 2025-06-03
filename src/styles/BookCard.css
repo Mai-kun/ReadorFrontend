@@ -36,6 +36,7 @@
 .book-cover {
     width: 260px;
     min-height: 390px;
+    max-height: 390px;
     object-fit:cover;
 }
 
@@ -74,10 +75,11 @@
     .book-cover {
         width: 200px;
         min-height: 270px;
+        max-height: 270px;
     }
 
     .book-info {
-        width: 100%;
+        width: 80%;
     }
 }
 
@@ -89,6 +91,7 @@
     .book-cover {
         width: 180px;
         min-height: 270px;
+        max-height: 270px;
     }
 
     .book-info {
@@ -112,7 +115,7 @@
     }
 
     .book-info {
-        width: 80%;
+        width: 60%;
     }
 }
 
