@@ -12,6 +12,7 @@ const HomePage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
+    const [showScrollButton, setShowScrollButton] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -55,6 +56,15 @@ const HomePage = () => {
         return () => clearTimeout(debounceTimer);
     }, [selectedGenre, searchQuery]);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            setShowScrollButton(window.scrollY > 100);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+    
     return (
         <div className="home-layout">
             <InstallBanner />
@@ -88,6 +98,15 @@ const HomePage = () => {
                     </div>
                 )}
             </div>
+
+            {!isLoading && !error && showScrollButton && (
+                <button
+                    className="scroll-to-top"
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                >
+                    ⬆ Наверх
+                </button>
+            )}
         </div>
     );
 };
