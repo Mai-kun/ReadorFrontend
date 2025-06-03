@@ -73,8 +73,7 @@ const ReaderPage = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
-
+    
     return (
         <div className="reader-container">
             <div className="reader-header">
