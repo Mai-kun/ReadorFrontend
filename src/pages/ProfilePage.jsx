@@ -29,9 +29,9 @@ export default function ProfilePage() {
         fetchData();
     }, []);
 
-    if (loading) return <div className="loading">Loading...</div>;
+    if (loading) return <div className="loading">Загрузка...</div>;
 
-    if (!profile) return <div className="error">Profile not found</div>;
+    if (!profile) return <div className="error">Профиль не найден</div>;
 
     return (
         <div className="container profile-container">
@@ -41,7 +41,7 @@ export default function ProfilePage() {
                     <h1>{profile.username}</h1>
                     <div className="meta-info">
                         <p>Email: {profile.email}</p>
-                        <p>Registered: {new Date(profile.createdAt).toLocaleDateString()}</p>
+                        <p>Дата регистрации: {new Date(profile.createdAt).toLocaleDateString()}</p>
                     </div>
                 </div>
             </div>
@@ -108,10 +108,10 @@ export default function ProfilePage() {
             
             {/* Statistics */}
             <div className="stats-section">
-                <h2>Statistics</h2>
+                <h2>Статистика</h2>
                 <div className="stats-grid">
                     <div className="stat-item">
-                        <span className="stat-label">Total Books</span>
+                        <span className="stat-label">Всего книг</span>
                         <span className="stat-value">{profile.totalBooks}</span>
                     </div>
                 </div>
@@ -119,9 +119,9 @@ export default function ProfilePage() {
 
             {/* User's Books */}
             <div className="books-section">
-                <h2>Your Books</h2>
+                <h2>Ваши книги</h2>
                 {profile.books.length === 0 ? (
-                    <p className="empty-message">No books uploaded yet</p>
+                    <p className="empty-message">Еще не загружено ни одной книги</p>
                 ) : (
                     <div className="books-grid">
                         {userBooks.map(book => (
