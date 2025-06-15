@@ -25,10 +25,20 @@ export default function ProfilePage() {
                 setLoading(false);
             }
         };
-
         fetchData();
     }, []);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await userApi.getMe();
+                setProfile(res.data);
+                setUserBooks(res.data.books);
+            } catch {}
+        };
+        fetchData();
+    }, [showAddBookForm]);
+    
     if (loading) return <div className="loading">Загрузка...</div>;
 
     if (!profile) return <div className="error">Профиль не найден</div>;
